@@ -55,7 +55,7 @@ public class Coins {
     public String toString() {
         Map<Coin, Integer> coinNumber = getCoinNumber();
 
-        return String.format("500원 - %d개%n100원 - %d개%n50원 - %d개%n10원 - %d개%n", coinNumber.get(COIN_500),
+        return String.format("500원 - %d개%n100원 - %d개%n50원 - %d개%n10원 - %d개", coinNumber.get(COIN_500),
                 coinNumber.get(COIN_100), coinNumber.get(COIN_50), coinNumber.get(COIN_10));
     }
 

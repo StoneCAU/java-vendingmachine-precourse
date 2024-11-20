@@ -5,7 +5,7 @@ import camp.nextstep.edu.missionutils.Console;
 public class InputView {
     private final static String NEW_LINE = System.lineSeparator();
 
-    private void printNewLine() {
+    private static void printNewLine() {
         System.out.printf(NEW_LINE);
     }
 
@@ -15,7 +15,14 @@ public class InputView {
     }
 
     public static String inputProducts() {
+        printNewLine();
         System.out.println("상품명과 가격, 수량을 입력해 주세요.");
+        return Console.readLine();
+    }
+
+    public static String inputPurchaseMoney() {
+        printNewLine();
+        System.out.println("투입 금액을 입력해 주세요.");
         return Console.readLine();
     }
 }

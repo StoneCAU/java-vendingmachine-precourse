@@ -1,6 +1,7 @@
 package vendingmachine.controller;
 
 import vendingmachine.domain.Coins;
+import vendingmachine.domain.Money;
 import vendingmachine.domain.Products;
 import vendingmachine.exception.VendingMachineException;
 import vendingmachine.validator.InputValidator;
@@ -14,7 +15,9 @@ public class VendingMachineController {
         OutputView.printCoins(coins);
 
         Products products = getProducts();
+        Money inputMoney = getInputMoney();
 
+        purchase(coins, products, inputMoney);
     }
 
     private Coins getCoins() {
@@ -45,7 +48,18 @@ public class VendingMachineController {
         }
     }
 
-    private void purchase(Coins coins, Products products) {
+    private Money getInputMoney() {
+        while (true) {
+            try {
+                String input = InputView.inputPurchaseMoney();
+                return new Money(InputValidator.validateMoney(input));
+            } catch (VendingMachineException e) {
+                OutputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private void purchase(Coins coins, Products products, Money inputMoney) {
 
     }
 }
