@@ -17,7 +17,18 @@ public class InputValidator {
             throw new VendingMachineException(ErrorMessage.INVALID_MONEY_FORMAT);
         }
 
+        if (money % 10 != 0) throw new VendingMachineException(ErrorMessage.INVALID_INPUT_FORMAT);
+
         return money;
+    }
+
+    public static Products validateProducts(String input) {
+        List<String> parsedProductInput = parseProduct(input);
+
+        List<Product> productList = parsedProductInput.stream()
+                .map(InputValidator::validateProductInput).toList();
+
+        return new Products(productList);
     }
 
     private static void validateIsNumber(String input) {
@@ -29,17 +40,11 @@ public class InputValidator {
     }
 
     private static void validateProductInfo(List<String> productInfo) {
+        if (productInfo.size() != 3) {
+            throw new VendingMachineException(ErrorMessage.INVALID_INPUT_FORMAT);
+        }
         validateIsNumber(productInfo.get(1));
         validateIsNumber(productInfo.get(2));
-    }
-
-    public static Products validateProducts(String input) {
-        List<String> parsedProductInput = parseProduct(input);
-
-        List<Product> productList = parsedProductInput.stream()
-                .map(InputValidator::validateProductInput).toList();
-
-        return new Products(productList);
     }
 
     private static Product validateProductInput(String productInput) {
@@ -54,6 +59,10 @@ public class InputValidator {
     }
 
     private static List<String> parseProductInfo(String input) {
+        if (!input.matches("\\[([^]]+)\\]")) {
+            throw new VendingMachineException(ErrorMessage.INVALID_INPUT_FORMAT);
+        }
+
         input = input.replaceAll("[\\[\\]]","");
         return List.of(input.split(","));
     }

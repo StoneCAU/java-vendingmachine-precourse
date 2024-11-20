@@ -14,6 +14,7 @@ public class VendingMachineController {
         OutputView.printCoins(coins);
 
         Products products = getProducts();
+
     }
 
     private Coins getCoins() {
@@ -34,7 +35,17 @@ public class VendingMachineController {
     }
 
     private Products getProducts() {
-        String input = InputView.inputProducts();
-        return InputValidator.validateProducts(input);
+        while (true) {
+            try {
+                String input = InputView.inputProducts();
+                return InputValidator.validateProducts(input);
+            } catch (VendingMachineException e) {
+                OutputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private void purchase(Coins coins, Products products) {
+
     }
 }
