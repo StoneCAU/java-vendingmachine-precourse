@@ -1,14 +1,23 @@
 package vendingmachine.view;
 
+import vendingmachine.domain.Coins;
+
 public class OutputView {
     private static final String NEW_LINE = System.lineSeparator();
 
-    private void printNewLine() {
+    private static void printNewLine() {
         System.out.printf(NEW_LINE);
     }
 
-    public void printErrorMessage(String message) {
+    public static void printCoins(Coins coins) {
+        printNewLine();
+        System.out.println("자판기가 보유한 동전");
+        System.out.println(coins);
+    }
+
+    public static void printErrorMessage(String message) {
         printNewLine();
         System.out.println(message);
+        printNewLine();
     }
 }
