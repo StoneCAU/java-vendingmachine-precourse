@@ -15,9 +15,12 @@ public class OutputView {
         System.out.println(coins);
     }
 
+    public static void printInputMoney(int amount) {
+        System.out.printf("%n투입 금액: %d원%n", amount);
+    }
+
     public static void printErrorMessage(String message) {
         printNewLine();
         System.out.println(message);
-        printNewLine();
     }
 }
