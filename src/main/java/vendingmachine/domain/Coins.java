@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Coins {
     private List<Coin> coins;
@@ -59,6 +60,23 @@ public class Coins {
                 coinNumber.get(COIN_100), coinNumber.get(COIN_50), coinNumber.get(COIN_10));
     }
 
+    public Map<Coin, Integer> calculateChange(int amount) {
+        Map<Coin, Integer> coinNumber = getCoinNumber();
+        Map<Coin, Integer> change = new HashMap<>();
+        List<Coin> initialCoins = List.of(COIN_500, COIN_100, COIN_50, COIN_10);
+        AtomicInteger temp = new AtomicInteger(amount);
+        initialCoins.stream()
+                .filter(coin -> coinNumber.get(coin) > 0)
+                .forEach(coin -> {
+                    while (isConditionSatisfied(temp, coin, coinNumber)) {
+                        temp.addAndGet(-coin.getAmount());
+                        coinNumber.put(coin, coinNumber.get(coin) - 1);
+                        change.put(coin, change.getOrDefault(coin, 0) + 1);
+                    }
+                });
+        return change;
+    }
+
     private Map<Coin, Integer> getCoinNumber() {
         Map<Coin, Integer> coinNumber = initialCoinNumber();
 
@@ -75,5 +93,9 @@ public class Coins {
         return coinNumber;
     }
 
-
+    private boolean isConditionSatisfied(AtomicInteger temp, Coin coin, Map<Coin, Integer> coinNumber) {
+        return temp.get() >= coin.getAmount()
+                && coinNumber.get(coin) > 0
+                && temp.get() - coin.getAmount() > 0;
+    }
 }

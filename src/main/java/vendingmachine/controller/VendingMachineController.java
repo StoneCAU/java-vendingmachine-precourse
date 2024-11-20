@@ -1,6 +1,8 @@
 package vendingmachine.controller;
 
 import java.util.List;
+import java.util.Map;
+import vendingmachine.domain.Coin;
 import vendingmachine.domain.Coins;
 import vendingmachine.domain.Money;
 import vendingmachine.domain.Product;
@@ -69,6 +71,9 @@ public class VendingMachineController {
             product.purchase();
             inputMoney = new Money(inputMoney.getAmount() - product.getPrice());
         }
+
+        Map<Coin, Integer> change = coins.calculateChange(inputMoney.getAmount());
+        OutputView.printChange(change);
     }
 
     private Product findByName(Products products) {
