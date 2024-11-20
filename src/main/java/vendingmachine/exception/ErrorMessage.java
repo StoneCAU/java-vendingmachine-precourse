@@ -1,7 +1,7 @@
 package vendingmachine.exception;
 
 public enum ErrorMessage {
-    INVALID_MENU_INPUT("선택할 수 없는 기능입니다.");
+    INVALID_MONEY_FORMAT("금액은 숫자여야 합니다.");
 
     private final String message;
 
