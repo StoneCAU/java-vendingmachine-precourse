@@ -1,5 +1,8 @@
 package vendingmachine.domain;
 
+import vendingmachine.exception.ErrorMessage;
+import vendingmachine.exception.VendingMachineException;
+
 public enum Coin {
     COIN_500(500),
     COIN_100(100),
@@ -12,5 +15,15 @@ public enum Coin {
         this.amount = amount;
     }
 
-    // 추가 기능 구현
+    public int getAmount() {
+        return amount;
+    }
+
+    public static Coin getByAmount(int amount) {
+        if (amount == COIN_500.amount) return COIN_500;
+        if (amount == COIN_100.amount) return COIN_100;
+        if (amount == COIN_50.amount) return COIN_50;
+        if (amount == COIN_10.amount) return COIN_10;
+        throw new VendingMachineException(ErrorMessage.INVALID_COIN_AMOUNT);
+    }
 }
